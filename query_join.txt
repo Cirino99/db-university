@@ -47,5 +47,5 @@ FROM students
 	JOIN exam_student ON students.id = exam_student.student_id
     JOIN exams ON exam_student.exam_id = exams.id
     JOIN courses ON exams.course_id = courses.id
-GROUP BY courses.id,students.registration_number,students.name, students.surname
-ORDER BY students.surname, students.name;
+GROUP BY courses.id, students.registration_number, students.name, students.surname
+ORDER BY students.surname, students.name ASC;
