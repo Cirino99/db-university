@@ -1,0 +1,43 @@
+Query 1
+SELECT students.registration_number as matricola, students.name, students.surname, degrees.name as corso_di_laurea 
+FROM students 
+    JOIN degrees ON students.degree_id = degrees.id 
+WHERE degrees.name = 'Corso di Laurea in Economia'; 
+
+Query 2
+SELECT degrees.name as corso_di_laurea, departments.name as dipartimento
+FROM degrees 
+    JOIN departments on degrees.department_id = departments.id
+WHERE departments.name = 'Dipartimento di Neuroscienze' AND degrees.level = 'magistrale';
+
+Query 3
+SELECT courses.name, courses.period, courses.year
+FROM courses
+    JOIN course_teacher ON courses.id = course_teacher.course_id
+    JOIN teachers ON course_teacher.teacher_id = teachers.id
+WHERE teachers.id = 14;
+
+Query 4
+SELECT students.surname as cognome, students.name as nome, students.registration_number as matricola, degrees.name as corso_di_laurea, departments.name as dipartimento
+FROM students
+	JOIN degrees ON students.degree_id = degrees.id
+    JOIN departments ON degrees.department_id = departments.id
+ORDER BY students.surname, students.name ASC;
+
+Query 5
+SELECT degrees.name as corso_di_laurea, courses.name as corso, courses.period, courses.year, teachers.name, teachers.surname
+FROM degrees
+	JOIN courses ON degrees.id = courses.degree_id
+    JOIN course_teacher ON courses.id = course_teacher.course_id
+    JOIN teachers ON course_teacher.teacher_id = teachers.id;
+
+Query 6
+SELECT teachers.*, departments.name
+FROM teachers
+	JOIN course_teacher ON teachers.id = course_teacher.teacher_id
+    JOIN courses ON course_teacher.course_id = courses.id
+    JOIN degrees ON courses.degree_id = degrees.id
+    JOIN departments ON degrees.department_id = departments.id
+WHERE departments.name = 'Dipartimento di Matematica';
+
+Query 7
