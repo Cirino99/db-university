@@ -32,12 +32,20 @@ FROM degrees
     JOIN teachers ON course_teacher.teacher_id = teachers.id;
 
 Query 6
-SELECT teachers.*, departments.name
+SELECT DISTINCT teachers.*, departments.name
 FROM teachers
 	JOIN course_teacher ON teachers.id = course_teacher.teacher_id
     JOIN courses ON course_teacher.course_id = courses.id
     JOIN degrees ON courses.degree_id = degrees.id
     JOIN departments ON degrees.department_id = departments.id
-WHERE departments.name = 'Dipartimento di Matematica';
+WHERE departments.name = 'Dipartimento di Matematica'
+ORDER BY teachers.surname, teachers.name ASC;
 
 Query 7
+SELECT students.surname, students.name, students.registration_number, courses.id as id_corso, courses.name as corso,  COUNT(courses.id) as numero_tentativi
+FROM students
+	JOIN exam_student ON students.id = exam_student.student_id
+    JOIN exams ON exam_student.exam_id = exams.id
+    JOIN courses ON exams.course_id = courses.id
+GROUP BY courses.id,students.registration_number,students.name, students.surname
+ORDER BY students.surname, students.name;
