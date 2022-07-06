@@ -49,3 +49,13 @@ FROM students
     JOIN courses ON exams.course_id = courses.id
 GROUP BY courses.id, students.registration_number, students.name, students.surname
 ORDER BY students.surname, students.name ASC;
+
+// versione con voto finale e numero di tentativi falliti (esclusi esami non superati)
+SELECT students.surname, students.name, students.registration_number, courses.id as id_corso, courses.name as corso,  COUNT(courses.id - 1) as numero_tentativi_falliti, MAX(exam_student.vote) as voto
+FROM students
+	JOIN exam_student ON students.id = exam_student.student_id
+    JOIN exams ON exam_student.exam_id = exams.id
+    JOIN courses ON exams.course_id = courses.id
+GROUP BY courses.id, students.registration_number, students.name, students.surname
+HAVING voto > 17
+ORDER BY students.surname, students.name ASC;
